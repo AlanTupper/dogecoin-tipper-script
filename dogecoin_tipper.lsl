@@ -64,7 +64,13 @@ default
         }
         else if( msg == "Reset")
         {
-            llRemoveInventory("Address");
+            integer num = llGetInventoryNumber(INVENTORY_NOTECARD);
+        
+            while (num) 
+            {
+                llRemoveInventory(llGetInventoryName(INVENTORY_NOTECARD, num - 1));
+                --num;
+            }
             llResetScript();
         }
         else if( msg == "Test Tip"){send_tip_message(id);};
