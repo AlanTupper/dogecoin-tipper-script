@@ -65,8 +65,8 @@ send_tip_message(key id)
     string send_coins = "Send coins to " + wallet_address;
     
     llInstantMessage(id,greeting + send_coins);
-    menu_listen_handle = llListen(menu_chan,"",id,"QR Code"); 
-    llDialog(id,"Need a QR Code?",["QR Code"],menu_chan);    
+    menu_listen_handle = llListen(menu_chan,"",id,""); 
+    llDialog(id,"Need a QR Code?",["QR Code","Dogecoin??"],menu_chan);    
 }
 
 // toggle the display of the address balance and throttle the http requests accordingly
@@ -98,6 +98,8 @@ default
     state_entry()
     {
        if(wallet_address == ""){state setup;}
+       
+       update_display();
        check_balance();
        llSetTimerEvent(30.0);
            
@@ -137,6 +139,11 @@ default
             toggle_display();
             llListenRemove(menu_listen_handle);    
         }
+        else if ( msg == "Dogecoin??")
+        { 
+            llInstantMessage(id, "Dogecoin is a fun, open cryptocurrency! \nLearn more and get started at http://dogecoin.com");
+            llListenRemove(menu_listen_handle); 
+        }
         
 
     }
@@ -148,6 +155,7 @@ default
         {
             llSetTimerEvent(0.0);
             display_balance = FALSE;
+            llSay(0,"Error: Couldn't fetch current balance!");
         }   
     }
     
