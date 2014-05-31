@@ -64,7 +64,7 @@ send_tip_message(key id)
     string greeting = "Hi " + llKey2Name(id) + "! ";
     string send_coins = "Send coins to " + wallet_address;
     
-    llSay(0,greeting + send_coins);
+    llInstantMessage(id,greeting + send_coins);
     menu_listen_handle = llListen(menu_chan,"",id,"QR Code"); 
     llDialog(id,"Need a QR Code?",["QR Code"],menu_chan);    
 }
